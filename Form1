@@ -1,0 +1,81 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace CurrencyExchange
+{
+    public partial class Form1 : Form
+    {
+        private Converter Converter;
+        public Form1()
+        {
+            InitializeComponent();
+            Converter = new Converter();
+            Converter.PropertyChanged += Converter_PropertyChanged;
+        }
+
+        private void Converter_PropertyChanged(object sender, PropertyChangedEventArgs e) {
+            switch (e.PropertyName) {
+                case "USD":
+                    usdTextBox.Text = Converter.USD.ToString();
+                    break;
+                case "EURO":
+                    euroTextBox.Text = Converter.Euro.ToString();
+                    break;
+                case "ETHER":
+                    etherTextBox.Text = Converter.Ether.ToString();
+                    break;
+                case "BITCOIN":
+                    bitcoinTextBox.Text = Converter.Bitcoin.ToString();
+                    break;
+            }
+        }
+        private void usdTextBox_TextChanged(object sender, EventArgs e)
+        {
+            string val = (sender as TextBox).Text;
+            Converter.USD = (val.Length == 0 || val.Equals(".")) ? 0: double.Parse(val);
+        }
+
+        private void usdtoeuroTextBox_TextChanged(object sender, EventArgs e)
+        {
+            string val = (sender as TextBox).Text;
+            Converter.USDToEuro = (val.Length == 0 || val.Equals(".")) ? 0 : double.Parse(val);
+        }
+
+        private void euroTextBox_TextChanged(object sender, EventArgs e)
+        {
+            string val = (sender as TextBox).Text;
+            Converter.Euro = (val.Length == 0 || val.Equals("."))? 0 : double.Parse(val);
+        }
+
+        private void usdtobcTextBox_TextChanged(object sender, EventArgs e)
+        {
+            string val = (sender as TextBox).Text;
+            Converter.USDToBitcoin = (val.Length == 0 || val.Equals(".")) ? 0 : double.Parse(val);
+        }
+
+        private void bitcoinTextBox_TextChanged(object sender, EventArgs e)
+        {
+            string val = (sender as TextBox).Text;
+            Converter.Bitcoin = (val.Length == 0 || val.Equals(".")) ? 0 : double.Parse(val);
+        }
+
+        private void usdtoetherTextBox_TextChanged(object sender, EventArgs e)
+        {
+            string val = (sender as TextBox).Text;
+            Converter.USDToEther = (val.Length == 0 || val.Equals(".")) ? 0 : double.Parse(val);
+        }
+
+        private void etherTextBox_TextChanged(object sender, EventArgs e)
+        {
+            string val = (sender as TextBox).Text;
+            Converter.Ether = (val.Length == 0 || val.Equals("."))? 0 : double.Parse(val);
+        }
+    }
+}
